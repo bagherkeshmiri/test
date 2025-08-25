@@ -10,7 +10,6 @@ Route::get('/', function () {
 
 
 Route::get('/test-store-order', function () {
-
     $user = User::query()->first();
 
     $orderData = [
@@ -18,9 +17,7 @@ Route::get('/test-store-order', function () {
         'order_number' => 'ORD-12345'
     ];
 
-//    $user->notify(new OrderPlaced($orderData));
+    $user->notify(new OrderPlaced($orderData));
     // Or
-//    $user->notify(new OrderPlaced($orderData, preferred: 'database'));
-//    $user->notify(new OrderPlaced($orderData, preferred: 'push'));
-    $user->notify(new OrderPlaced($orderData, preferred: 'sms'));
+    $user->notify(new OrderPlaced($orderData, preferred: 'database'));
 });
