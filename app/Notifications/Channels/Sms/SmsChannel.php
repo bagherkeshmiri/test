@@ -11,7 +11,7 @@ class SmsChannel
     public function __construct(protected SmsClientInterface $client) {}
 
 
-    public function send($notifiable, Notification $notification)
+    public function send($notifiable, Notification $notification): void
     {
         if (!method_exists($notification, 'toSms')) {
             return;
