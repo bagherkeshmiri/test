@@ -12,6 +12,10 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
+    public const string TABLE_NAME = 'users';
+    protected $table = self::TABLE_NAME;
+    public const string COLUMN_ID = 'id';
+
     protected $fillable = [
         'name',
         'email',
@@ -25,29 +29,34 @@ class User extends Authenticatable
         'remember_token'
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'password' => 'hashed',
+        'email_verified_at' => 'datetime',
+    ];
 
+    /*------------ Relations ------------*/
 
     public function notificationPreference(): HasOne
     {
-        return $this->hasOne(NotificationPreference::class);
+        return $this->hasOne(NotificationPreference::class, NotificationPreference::COLUMN_USER_ID, self::COLUMN_ID);
     }
 
+    /*-------------- Accessors & Mutators -------------*/
 
     public function hasActivePhoneNumber(): bool
     {
         return !empty($this->phone_number);
     }
 
-
     public function preferredLocale(): string
     {
         return $this->locale ?: app()->getLocale();
     }
+
+    /*-------------- Scopes -------------*/
+
+
+    /*---------- Other Functions --------*/
+
+
 }
