@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotificationPreference extends Model
 {
-    use HasFactory;
+    public const string TABLE_NAME = 'notification_preferences';
+    protected $table = self::TABLE_NAME;
+    public const string COLUMN_ID = 'id';
+    public const string COLUMN_USER_ID = 'user_id';
 
     protected $fillable = [
         'user_id',
@@ -15,8 +18,19 @@ class NotificationPreference extends Model
         'channels_per_event',
     ];
 
+    protected $hidden = [];
 
     protected $casts = [
         'channels_per_event' => 'array',
     ];
+
+    /*------------ Relations ------------*/
+
+    /*-------------- Accessors & Mutators -------------*/
+
+    /*-------------- Scopes -------------*/
+
+    /*---------- Other Functions --------*/
+
+
 }
